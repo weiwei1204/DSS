@@ -29,10 +29,11 @@ Route::get('/test/{Qnum?}', function ($Qnum = null) {
 
 Auth::routes();
 
-// Route::resource('ca', 'CapabilityController');
 
+Route::resource('/GrowthStrategy/Q2', 'BscController');
 Route::resource('/GrowthStrategy/Q3', 'CapabilityController');
 Route::resource('/GrowthStrategy/Q4', 'StrategyController');
+Route::resource('/GrowthStrategy/Q5', 'GrowthController');
 Route::get('/GrowthStrategy/{Qnum?}', function ($Qnum = null) {
     return view('GrowthStrategy');
 });

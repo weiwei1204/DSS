@@ -50,7 +50,7 @@ class CapabilityController extends Controller
         $capability->finance = $request->finance;
 
         $capability->save(); 
-            return redirect('/GrowthStrategy/Q4')->with('completed', 'Student has been saved!');
+            return redirect('/GrowthStrategy/Q3')->with('capability', '儲存成功');
             // return redirect()->intended('/GrowthStrategy/Q2');
 
                     // return redirect('/GrowthStrategy/Q4');

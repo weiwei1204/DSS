@@ -1,13 +1,14 @@
 @php ($changPage = "'/test/Q1'")
-@if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-      </div><br />
-    @endif
+ @if (session('capability'))
+   <div class="alert alert-success">
+    {{ session('capability') }}
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" id="Qbtn" value="next" onclick="location.href='/GrowthStrategy/Q4'" style="width:100px; margin-top: 20px; float: right;">下一步驟</button>
+  </div>
+  @else
+ 
+
 
    <form class="needs-validation" id="search_form" method="POST" action="/GrowthStrategy/Q3" novalidate>
 
@@ -70,12 +71,14 @@
 </table>
 
       <div class="row justify-content-center">
-        <button  class="btn" id="btn" type="submit" style="width:200px; height:50px;  margin-top: 20px; background-color: #2E86C1; color: white">下一步驟（儲存）</button>
+        <button  class="btn" id="btn" type="submit" style="width:200px; height:50px;  margin-top: 20px; background-color: #2E86C1; color: white">儲存</button>
       </div>
-      @foreach ($users as $users)
+    <!--   @foreach ($users as $users)
 {{$users->name}}
-@endforeach
+@endforeach -->
     </form>
+      @endif
+
 
 <script type="text/javascript">
 // Example starter JavaScript for disabling form submissions if there are invalid fields

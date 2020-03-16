@@ -29,9 +29,9 @@
             <button type="button" class="btn" id="Qbtn" onclick="location.href='/Performance/Q7'" style="margin-top: 20px;margin-right: 20px; border-radius: 100px; font-size: 20px;"><img src="{{ asset('img/yes.png') }}" height="80"></button>
             <button type="button" class="btn" id="Qbtn" onclick="location.href='/Allocation/Q11/strategy'" style="margin-top: 20px;margin-left:20px;  border-radius: 100px; font-size: 20px"><img src="{{ asset('img/no.png') }}" height="80"></button>
             </div>
-            <div class="justify-content-end">
+           <!--  <div class="justify-content-end">
             <button type="button" class="btn btn-secondary" id="Qbtn" value="上一題" onclick="location.href='/Performance/1'" style="width:100px; margin-top: 20px; float: right;">上一題</button>
-             </div>
+             </div> -->
         </div>
         </div>
         @endif
@@ -45,12 +45,12 @@
         </h3>
         <p class="lead" style="margin-bottom: 50px">企業產品目前是否處於生命週期之改變？</p>
             <div class="text-center">
-            <button type="button" class="btn" id="Qbtn" onclick="location.href='/Performance/Q8'" style="margin-top: 20px;margin-right: 20px; border-radius: 100px; font-size: 20px;"><img src="{{ asset('img/yes.png') }}" height="80"></button>
-            <button type="button" class="btn" id="Qbtn" onclick="location.href='/Allocation/Q11'" style="margin-top: 20px;margin-left:20px;  border-radius: 100px; font-size: 20px"><img src="{{ asset('img/no.png') }}" height="80"></button>
+            <button type="button" class="btn" id="Qbtn" onclick="location.href='/Performance/Q8'" style="margin-top: 20px;margin-right: 20px; border-radius: 100px; font-size: 20px;"><img src="{{ asset('img/change.png') }}" height="100"></button>
+            <button type="button" class="btn" id="Qbtn" onclick="location.href='/Allocation/Q11'" style="margin-top: 20px;margin-left:20px;  border-radius: 100px; font-size: 20px"><img src="{{ asset('img/unchange.png') }}" height="100"></button>
             </div>
-            <div class="justify-content-end">
+            <!-- <div class="justify-content-end">
             <button type="button" class="btn btn-secondary" id="Qbtn" value="上一題" onclick="location.href='/Performance/Q1'" style="width:100px; margin-top: 20px; float: right;">上一題</button>
-             </div>
+             </div> -->
         </div>
         </div>
         @endif
@@ -65,7 +65,6 @@
         @include('importdata.BSC')
             <div class="justify-content-end">
             <button type="button" class="btn btn-secondary" id="Qbtn" value="next" onclick="location.href='/Performance/Q9'" style="width:100px; margin-top: 20px; float: right;">next</button>
-            <button type="button" class="btn btn-secondary" id="Qbtn" value="上一題" onclick="location.href='/Performance/Q7'" style="width:100px; margin-top: 20px; margin-right: 5px; float: right;">上一題</button>
              </div>
         </div>
         </div>

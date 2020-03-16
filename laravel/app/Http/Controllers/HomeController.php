@@ -29,10 +29,11 @@ class HomeController extends Controller
         //         ->get();
     
 
-
-        // $output = shell_exec('/usr/local/bin/python3 ' . __DIR__ .'/DEAmodel.py 2>&1');
+        // $output = shell_exec('sudo /usr/local/bin/python3 /Users/rita/testlaravel.py 2>&1');
         
-        // echo var_dump($output);
+        // // echo var_dump($output);
+        // echo $output;
+        // echo shell_exec('whoami');
         // echo "hello";
 
 

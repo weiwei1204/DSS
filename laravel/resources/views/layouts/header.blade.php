@@ -46,8 +46,8 @@
 </head>
 <body>
     <div id="app" style="background: #f8f8f8">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top" style="position: fixed; height: 80px;">
+            <div class="container" style="margin-top: -10px">
                 <div class="navbar-header col-md-6">
 
                     <!-- Collapsed Hamburger -->
@@ -101,8 +101,8 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
+        <div style="margin-top: 50px">@yield('content')</div>
+        
     </div>
   <footer class="my-5 text-muted text-center text-small">
     <p class="mb-1">© 2020 wei</p>
