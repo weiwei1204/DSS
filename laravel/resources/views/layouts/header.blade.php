@@ -16,6 +16,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('js/Chart.js') }}" rel="stylesheet">
+        <link href="{{ asset('js/Chart.min.js') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Scripts -->
@@ -30,6 +32,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
      <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+ -->
   
 
 
@@ -43,10 +49,12 @@
         }
 
     </style>
-</head>
+
+
+
 <body>
-    <div id="app" style="background: #f8f8f8">
-        <nav class="navbar navbar-default navbar-fixed-top" style="position: fixed; height: 80px;">
+    <div id="app" style="background: #F4F5FA">
+        <nav class="navbar navbar-default navbar-fixed-top" style="position: fixed; height: 70px; line-height:100%">
             <div class="container" style="margin-top: -10px">
                 <div class="navbar-header col-md-6">
 
@@ -64,20 +72,20 @@
                     </a>
                 </div>
 
-                <div class="collapse navbar-collapse col-md-6" id="app-navbar-collapse">
+                <div class="collapse navbar-collapse col-md-6" id="app-navbar-collapse" >
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" style="margin-top: -30px">
                         <!-- Authentication Links -->
                         @if (session()->has('user_id'))
                         <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ session()->get('user_name', 'default') }}
-                                     <span class="caret"></span>
+                                  <!--    <span class="caret"></span> -->
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -102,6 +110,21 @@
             </div>
         </nav>
         <div style="margin-top: 50px">@yield('content')</div>
+         @if (Request::segment(2) == "Q10")
+            @if($Chartfinance!=null)
+            {!! $Chartfinance->script() !!}
+            @endif
+            @if($Chartcustomer!=null)
+            {!! $Chartcustomer->script() !!}
+            @endif
+            @if($Chartprocess!=null)
+            {!! $Chartprocess->script() !!}
+            @endif
+            @if($Chartlearn!=null)
+            {!! $Chartlearn->script() !!}
+            @endif
+        @endif
+</head>
         
     </div>
   <footer class="my-5 text-muted text-center text-small">

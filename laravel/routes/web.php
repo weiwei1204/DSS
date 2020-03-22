@@ -46,10 +46,20 @@ Route::resource('/Allocation/{Qnum?}/strategy', 'AllocationStrategyController');
 
 // Route::resource('/Performance/{Qnum?}', 'AllocationStrategyController');
 
-Route::resource('Performance/{Qnum?}', 'PerformanceController');
-// Route::get('/Performance/{Qnum?}', function ($Qnum = null) {
-//     return view('PerformanceOfCapability');
-// });
+
+if (Request::segment(2) == "Q8"){
+	Route::resource('/Performance/Q8/{PLC?}', 'ResourceController');
+}
+if (Request::segment(2) == "Q9"){
+	Route::resource('/Performance/Q9/{PLC?}', 'PerformanceController');
+}
+if (Request::segment(2) == "Q10"){
+	Route::get('/Performance/Q10/{PLC?}', 'PerformanceController@readexcel');
+}
+Route::get('/Performance/{Qnum?}', function ($Qnum = null) {
+    return view('PerformanceOfCapability');
+});
+// Route::resource('Performance/{Qnum?}', 'PerformanceController');
 
 
 

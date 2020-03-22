@@ -8,6 +8,7 @@
 
 
 
+
     <div class="container">
       <div class="py-5 text-center">
         <h2>分析目的</h2>
@@ -53,6 +54,7 @@
              </div> -->
         </div>
         </div>
+        
         @endif
 
         @if (Request::segment(2) == "Q8")
@@ -61,11 +63,8 @@
         <h3 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted" >Q8</span>
         </h3>
-        <p class="lead" style="margin-bottom: 50px">評估四大構面之16項能耐因子</p>
-        @include('importdata.BSC')
-            <div class="justify-content-end">
-            <button type="button" class="btn btn-secondary" id="Qbtn" value="next" onclick="location.href='/Performance/Q9'" style="width:100px; margin-top: 20px; float: right;">next</button>
-             </div>
+        <p class="lead" style="margin-bottom: 50px">評估<span style="background-color:#D8EEE7;">四大構面之16項能耐因子</span></p>
+        @include('importdata.PLC')
         </div>
         </div>
         @endif
@@ -77,47 +76,79 @@
         <h3 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted" >Q9</span>
         </h3>
-        <p class="lead" style="margin-bottom: 50px">評估績效表現程度</p>
-        <div style="padding: 0 50px">@include('importdata.Performance')</div>
-        
-            <div class="justify-content-end">
-             <button type="button" class="btn btn-secondary" id="Qbtn" value="next" onclick="location.href='/Performance/Q10'" style="width:100px; margin-top: 20px; float: right;">next</button>   
-            <button type="button" class="btn btn-secondary" id="Qbtn" value="上一題" onclick="location.href='/Performance/Q8'" style="width:100px; margin-top: 20px; margin-right: 5px; float: right;">上一題</button>
-             </div>
+        <p class="lead" style="margin-bottom: 50px">評估<span style="background-color:#EEDDDC;">績效表現程度</span></p>
+        <div style="padding: 0 50px">@include('importdata.Performance')</div>           
         </div>
         </div>
         @endif
-
+         </div>
+        <div class="col-md-3 order-md-4 mb-3"></div>
+            </div>
+    </div>
 
         @if (Request::segment(2) == "Q10")
-        <div class="card p-2">
-        <div style="padding: 20px">
-        <h3 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted" >Q10</span>
-        </h3>
+        <div class="container" style=" margin-top: -300px">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                  <h3><span class="text-muted">Q10 </span></h3>
         <p class="lead" style="margin-bottom: 50px">組織能耐效用評估模式分析</p>
-        <div style="padding: 0 10px">顯示分析結果</div>
+        <!--  {{-- ChartScript --}}-->    
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title" style="display: inline;">財務觀點 </h5> -- {{ $Maxfinance }}
+                <div style="height: 250px; margin-top: 30px"> {!! $Chartfinance->container() !!}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title" style="display: inline;">顧客觀點</h5> -- {{ $Maxcustomer }}
+                 <div style="height: 250px; margin-top: 30px"> {!! $Chartcustomer->container() !!}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title" style="display: inline;">內部流程觀點</h5> -- {{ $Maxinprocess }}
+                <div style="height: 250px; margin-top: 30px"> {!! $Chartprocess->container() !!}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title" style="display: inline;">學習成長觀點</h5> -- {{ $Maxlearn_growth }}
+                 <div style="height: 250px; margin-top: 30px"> {!! $Chartlearn->container() !!}</div>
+              </div>
+            </div>
+          </div>
+        </div>
         
             <div class="justify-content-end">
             <button type="button" class="btn btn-secondary" id="Qbtn" value="next" onclick="location.href='/Performance/Q10'" style="width:100px; margin-top: 20px; float: right;">next</button>
-            <button type="button" class="btn btn-secondary" id="Qbtn" value="上一題" onclick="location.href='/Performance/Q9'" style="width:100px; margin-top: 20px; margin-right: 5px; float: right;">上一題</button>
              </div>
+            </div>
+            <div class="col-md-1"></div>
         </div>
-        </div>
+        
+      </div>
+       
         @endif
-        </div>
+       
 
 
         <div class="spinner-border" role="status" id="loading">
          <span class="sr-only">Loading...</span>
         </div>
-        <div class="col-md-3 order-md-4 mb-3"></div>
 
-    </div>
-
-    
-
-    </div>
 
 
 @endsection
@@ -130,6 +161,7 @@ $(document).ready(function(){
 
     });
 });
+
 
 
 </script>

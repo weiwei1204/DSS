@@ -112,7 +112,7 @@ class GrowthController extends Controller
         // $a = '111';
 
         // $output = shell_exec('sudo /usr/local/bin/python3 /Users/rita/testlaravel.py 2>&1'.$a);
-        $output = shell_exec('sudo /usr/local/bin/python3 /Users/rita/testlaravel.py '. escapeshellarg(json_encode($finance)) .' '
+        $output = shell_exec('sudo /usr/local/bin/python3 .__FILE__.DEAmodel.py '. escapeshellarg(json_encode($finance)) .' '
          . escapeshellarg(json_encode($customer)) . ' '. escapeshellarg(json_encode($inprocess)) .' '. escapeshellarg(json_encode($learn_growth)) . ' ' .$sum);
 
         

@@ -180,6 +180,9 @@ return [
         //excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        //chart
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
     ],
 
     /*
