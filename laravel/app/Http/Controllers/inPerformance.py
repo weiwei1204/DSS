@@ -167,6 +167,8 @@ for i in range(4):
 
     # dea.analysis()	# dea 分析并输出表格
     # print(dea.dea()) # dea 分析，不输出结果
-print(final)
-dea.analysis()
+# print(final)
+dea.analysis();
+print("完成");
+
 

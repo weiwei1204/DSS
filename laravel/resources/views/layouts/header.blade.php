@@ -19,6 +19,7 @@
         <link href="{{ asset('js/Chart.js') }}" rel="stylesheet">
         <link href="{{ asset('js/Chart.min.js') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{{ asset('css/rita_style.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -33,6 +34,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
      <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+
+
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
  -->
@@ -49,12 +55,14 @@
         }
 
     </style>
+</head>
 
 
 
 <body>
-    <div id="app" style="background: #F4F5FA">
-        <nav class="navbar navbar-default navbar-fixed-top" style="position: fixed; height: 70px; line-height:100%">
+    <div id="app">
+<!--         <spinner></spinner>
+ -->        <nav class="navbar navbar-default navbar-fixed-top" style="position: fixed; height: 70px; line-height:100%">
             <div class="container" style="margin-top: -10px">
                 <div class="navbar-header col-md-6">
 
@@ -108,29 +116,33 @@
                     </ul>
                 </div>
             </div>
+<!--                             <spinner></spinner>
+ -->
+            </div>
+
         </nav>
-        <div style="margin-top: 50px">@yield('content')</div>
+
+        <div style="margin-top: 50px;background: #F4F5FA">@yield('content') </div>
+
          @if (Request::segment(2) == "Q10")
-            @if($Chartfinance!=null)
-            {!! $Chartfinance->script() !!}
+            @if($Chartbsc1!=null)
+            {!! $Chartbsc1->script() !!}
             @endif
-            @if($Chartcustomer!=null)
-            {!! $Chartcustomer->script() !!}
+            @if($Chartbsc2!=null)
+            {!! $Chartbsc2->script() !!}
             @endif
-            @if($Chartprocess!=null)
-            {!! $Chartprocess->script() !!}
-            @endif
-            @if($Chartlearn!=null)
-            {!! $Chartlearn->script() !!}
+            @if($Chartbsc3!=null)
+            {!! $Chartbsc3->script() !!}
             @endif
         @endif
-</head>
         
     </div>
-  <footer class="my-5 text-muted text-center text-small">
-    <p class="mb-1">© 2020 wei</p>
+  <footer class="my-2 pt-2 text-muted text-center text-small">
+    <p class="mb-1" >© 2020 wei</p>
   </footer>
-       <script src="{{ asset('js/app.js') }}"></script>
 
 </body>
+       <script src="{{ asset('js/app.js') }}"></script>
+
 </html>
+

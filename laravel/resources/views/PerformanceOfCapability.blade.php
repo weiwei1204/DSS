@@ -71,6 +71,15 @@
 
 
         @if (Request::segment(2) == "Q9")
+            <!-- Modal -->
+        <div class="modal" id="loadQ9" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document"  >
+              <div class="spinner-border justify-content-center" role="status"  style="position:fixed;top:50%;left:50%;width: 5rem; height: 5rem;">
+         <span class="sr-only">Loading...</span>
+        </div>
+            </div>
+        </div>
+        <!-- Modal -->
         <div class="card p-2">
         <div style="padding: 20px">
         <h3 class="d-flex justify-content-between align-items-center mb-3">
@@ -87,50 +96,41 @@
     </div>
 
         @if (Request::segment(2) == "Q10")
+                <!-- Modal -->
+        <div class="modal" id="load" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document"  >
+              <div class="spinner-border justify-content-center" role="status"  style="position:fixed;top:50%;left:50%;width: 5rem; height: 5rem;">
+         <span class="sr-only">Loading...</span>
+        </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
         <div class="container" style=" margin-top: -300px">
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
                   <h3><span class="text-muted">Q10 </span></h3>
         <p class="lead" style="margin-bottom: 50px">組織能耐效用評估模式分析</p>
-        <!--  {{-- ChartScript --}}-->    
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title" style="display: inline;">財務觀點 </h5> -- {{ $Maxfinance }}
-                <div style="height: 250px; margin-top: 30px"> {!! $Chartfinance->container() !!}</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title" style="display: inline;">顧客觀點</h5> -- {{ $Maxcustomer }}
-                 <div style="height: 250px; margin-top: 30px"> {!! $Chartcustomer->container() !!}</div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title" style="display: inline;">內部流程觀點</h5> -- {{ $Maxinprocess }}
-                <div style="height: 250px; margin-top: 30px"> {!! $Chartprocess->container() !!}</div>
-              </div>
-            </div>
+                  <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">組織內部分析</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">組織外部分析</a>
+          
           </div>
-          <div class="col-sm-6">
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title" style="display: inline;">學習成長觀點</h5> -- {{ $Maxlearn_growth }}
-                 <div style="height: 250px; margin-top: 30px"> {!! $Chartlearn->container() !!}</div>
-              </div>
-            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div hidden> {{ $event = 1}}</div>
+                      @include('importdata.Resultperformance')</div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+               <div hidden> {{ $event = 2}}</div>
+                      @include('importdata.Resultperformance')
           </div>
         </div>
+        <!--  {{-- ChartScript --}}-->    
+
         
             <div class="justify-content-end">
             <button type="button" class="btn btn-secondary" id="Qbtn" value="next" onclick="location.href='/Performance/Q10'" style="width:100px; margin-top: 20px; float: right;">next</button>
@@ -145,23 +145,37 @@
        
 
 
-        <div class="spinner-border" role="status" id="loading">
-         <span class="sr-only">Loading...</span>
-        </div>
 
 
 
-@endsection
 <script>
- $('#loading').hide();
+
+//預設顯示分析結果
+window.onload = function() {
+    $('#nav-tab a:first').tab('show');
+        $('#loading').hide();
+        setTimeout(function() {
+            $('#load').modal('hide');
+            },500);
+};
+
+
+
 $(document).ready(function(){
-
+        $('#load').modal('show');
     $("#Qbtn").click(function(){
-      $('#loading').show();
+        $('#loading').show();
 
-    });
+  });
+
 });
 
 
 
+
+ 
+
 </script>
+
+@endsection
+

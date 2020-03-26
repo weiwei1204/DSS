@@ -54,7 +54,7 @@ if (Request::segment(2) == "Q9"){
 	Route::resource('/Performance/Q9/{PLC?}', 'PerformanceController');
 }
 if (Request::segment(2) == "Q10"){
-	Route::get('/Performance/Q10/{PLC?}', 'PerformanceController@readexcel');
+	Route::get('/Performance/Q10/{PLC?}', 'PerformanceController@deavalue');
 }
 Route::get('/Performance/{Qnum?}', function ($Qnum = null) {
     return view('PerformanceOfCapability');

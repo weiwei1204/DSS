@@ -29,7 +29,7 @@ class GrowthController extends Controller
 
       
 
-
+        $this->DEAanalyze();
    
         $report = $this->instrategy();
         $finance = $report[0];
@@ -37,19 +37,32 @@ class GrowthController extends Controller
         $inprocess = $report[2];
         $learn_growth = $report[3];
         $total = $report[4];
-        $other = [0.5538,0.7214,1.1212,0.6279,0.6410,0.5593];   //B公司效用值
+        $Bcompany = Excel::toArray(new UsersImport,  public_path('Bcompany.xlsx'));//[array][2開始為數據][0策略1財務2顧客3流程4學習5總效益]
+        $Bstrategy1 = array_merge($Bcompany[0][2]);
+        $Bstrategy2 = array_merge($Bcompany[0][3]);
+        $Bstrategy3 = array_merge($Bcompany[0][4]);
+        $Bstrategy4 = array_merge($Bcompany[0][5]);
+        $Bstrategy5 = array_merge($Bcompany[0][6]);
+        $Bstrategy6 = array_merge($Bcompany[0][2]);
         //  找策略中最大效益值
-        $fmax = $this->max($finance);
-        $cmax = $this->max($customer);
-        $imax = $this->max($inprocess);
-        $lmax = $this->max($learn_growth);
-        $tmax = $this->max($total);
-        $omax = $this->max($other);
+        $fmax = array_keys($finance, max($finance));
+        $cmax = array_keys($customer, max($customer));
+        $imax = array_keys($inprocess, max($inprocess));
+        $lmax = array_keys($learn_growth, max($learn_growth));
+        $tmax = array_keys($total, max($total));
+        $btotal = array($Bstrategy1[5],$Bstrategy2[5],$Bstrategy3[5],$Bstrategy4[5],$Bstrategy5[5],$Bstrategy6[5]);
+        $omax = array_keys($btotal, max($btotal));;
+
+
+
+
         
         return view('GrowthStrategy', 
             ['finance' => $finance, 'customer' => $customer, 'inprocess' => $inprocess,'learn_growth' => $learn_growth,
-            'fmax' => $fmax, 'cmax' => $cmax, 'imax' => $imax, 'lmax' => $lmax,
-            'total' => $total, 'other' => $other, 'tmax' => $tmax, 'omax' => $omax]);
+            'fmax' => $fmax, 'cmax' => $cmax, 'imax' => $imax, 'lmax' => $lmax,'total' => $total, 'tmax' => $tmax, 'omax' => $omax,
+            'Bstrategy1' => $Bstrategy1, 'Bstrategy2' => $Bstrategy2, 'Bstrategy3' => $Bstrategy3,
+            'Bstrategy4' => $Bstrategy4, 'Bstrategy5' => $Bstrategy5, 'Bstrategy6' => $Bstrategy6
+            ]);
         
 
  
@@ -82,7 +95,6 @@ class GrowthController extends Controller
                 // 計算DEA投入的值 （利用排序計算權重，並乘上能耐分數） 
         foreach ($results as $results) {
             $num = (int)$results->bsc_id;
-            echo $num;
             for ($i=0; $i < 4 ; $i++) { 
                 //array_push($arrayname,$sql結果，用column取資料)
                 $col = $resource[$i].'1';
@@ -99,11 +111,11 @@ class GrowthController extends Controller
                 array_push($bsc[$num-1], $value);
             }
         }
-                $inprocess = $bsc[2];
+        //         $inprocess = $bsc[2];
 
-        foreach ($inprocess as $inprocess) {
-            echo $inprocess;
-        }
+        // foreach ($inprocess as $inprocess) {
+        //     echo $inprocess;
+        // }
 
         $finance = $bsc[0];
         $customer = $bsc[1];
@@ -112,11 +124,11 @@ class GrowthController extends Controller
         // $a = '111';
 
         // $output = shell_exec('sudo /usr/local/bin/python3 /Users/rita/testlaravel.py 2>&1'.$a);
-        $output = shell_exec('sudo /usr/local/bin/python3 .__FILE__.DEAmodel.py '. escapeshellarg(json_encode($finance)) .' '
+        $output = shell_exec('sudo /usr/local/bin/python3 ' .__DIR__.'/DEAmodel.py '. escapeshellarg(json_encode($finance)) .' '
          . escapeshellarg(json_encode($customer)) . ' '. escapeshellarg(json_encode($inprocess)) .' '. escapeshellarg(json_encode($learn_growth)) . ' ' .$sum);
 
         
-        echo var_dump($output);
+        // echo var_dump($output);
     }
 
 
@@ -160,20 +172,7 @@ class GrowthController extends Controller
         }
         return array($sfinance,$scustomer,$sinprocess,$slearn_growth,$stotal);
 
-    }
-
-    public function max(array $arr){
-        $maxvalue = max($arr);
-        $max = array();
-        for ($i=0; $i <  count($arr); $i++) { 
-           if ($arr[$i] == $maxvalue) {
-                array_push($max,$i+1);
-            } 
-        }
-
-        return $max;
-    }
- 
+    } 
 
 
     /**
@@ -208,37 +207,6 @@ class GrowthController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

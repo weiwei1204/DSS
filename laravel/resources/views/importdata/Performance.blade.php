@@ -4,8 +4,18 @@
   儲存成功
 </div>
 <div>
-  <button type="button" class="btn btn-primary" id="Qbtn" value="next" onclick="location.href='/Performance/Q10'" style="width:100px; margin-top: 20px; float: right;">下一步驟</button>
+  <button type="button" class="btn btn-primary" id="next" value="next" onclick="location.href='/Performance/Q10'" style="width:100px; margin-top: 20px; float: right;">下一步驟</button>
 </div>
+
+   <!-- Modal -->
+        <div class="modal" id="loadQ9" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document"  >
+              <div class="spinner-border justify-content-center" role="status"  style="position:fixed;top:50%;left:50%;width: 5rem; height: 5rem;">
+         <span class="sr-only">Loading...</span>
+        </div>
+            </div>
+        </div>
+        <!-- Modal -->
 @else
 <div style="margin-bottom: 30px; text-align: center;" >
      @if (str_contains(Request::segment(3),'PLC1'))  
@@ -78,116 +88,116 @@
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F8F9F9 ">製造資源和能耐</th>
                 <th>成本</th>
-                <td align="center"><input type="number" name="mf1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>品質</th>
-                <td align="center"><input type="number" name="mf2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>運輸</th>
-                <td align="center"><input type="number" name="mf3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>靈活度</th>
-                <td align="center"><input type="number" name="mf4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#D2E1D8">行銷資源和能耐</th>
                 <th>通路管理</th>
-                <td align="center"><input type="number" name="mf5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>市場溝通</th>
-                <td align="center"><input type="number" name="mf6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>定價策略</th>
-                <td align="center"><input type="number" name="mf7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>產品策略</th>
-                <td align="center"><input type="number" name="mf8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F8F9F9">研發資源和能耐</th>
                 <th>新品總數量</th>
-                <td align="center"><input type="number" name="mf9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>專利使用費</th>
-                <td align="center"><input type="number" name="mf10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>研發投資報酬率</th>
-                <td align="center"><input type="number" name="mf11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>新品總發展時間</th>
-                <td align="center"><input type="number" name="mf12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#D2E1D8">財務資源和能耐</th>
                 <th>資產報酬率</th>
-                <td align="center"><input type="number" name="mf13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                 <tr>
                   <th>股東權益報酬率</th>
-                  <td align="center"><input type="number" name="mf14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="ma14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="d14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="f14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="mf14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="ma14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="d14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="f14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                   <tr>
                     <th>營收成長率</th>
-                    <td align="center"><input type="number" name="mf15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="ma15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="d15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="f15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="mf15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="ma15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="d15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="f15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                   </tr>
                   <tr>
                     <th>本益比</th>
-                    <td align="center"><input type="number" name="mf16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="ma16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="d16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="f16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="mf16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="ma16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="d16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="f16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
 
                   </tbody>
                 </table>
@@ -237,116 +247,116 @@
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F8F9F9 ">製造資源和能耐</th>
                 <th>成本</th>
-                <td align="center"><input type="number" name="mf1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>品質</th>
-                <td align="center"><input type="number" name="mf2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>運輸</th>
-                <td align="center"><input type="number" name="mf3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>靈活度</th>
-                <td align="center"><input type="number" name="mf4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F0E7E5">行銷資源和能耐</th>
                 <th>通路管理</th>
-                <td align="center"><input type="number" name="mf5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>市場溝通</th>
-                <td align="center"><input type="number" name="mf6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>定價策略</th>
-                <td align="center"><input type="number" name="mf7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>產品策略</th>
-                <td align="center"><input type="number" name="mf8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F8F9F9">研發資源和能耐</th>
                 <th>新品總數量</th>
-                <td align="center"><input type="number" name="mf9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>專利使用費</th>
-                <td align="center"><input type="number" name="mf10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>研發投資報酬率</th>
-                <td align="center"><input type="number" name="mf11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>新品總發展時間</th>
-                <td align="center"><input type="number" name="mf12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F0E7E5">財務資源和能耐</th>
                 <th>資產報酬率</th>
-                <td align="center"><input type="number" name="mf13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                 <tr>
                   <th>股東權益報酬率</th>
-                  <td align="center"><input type="number" name="mf14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="ma14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="d14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="f14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="mf14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="ma14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="d14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="f14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                   <tr>
                     <th>營收成長率</th>
-                    <td align="center"><input type="number" name="mf15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="ma15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="d15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="f15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="mf15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="ma15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="d15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="f15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                   </tr>
                   <tr>
                     <th>本益比</th>
-                    <td align="center"><input type="number" name="mf16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="ma16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="d16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="f16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="mf16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="ma16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="d16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="f16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
 
                   </tbody>
                 </table>
@@ -396,116 +406,116 @@
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F8F9F9 ">製造資源和能耐</th>
                 <th>成本</th>
-                <td align="center"><input type="number" name="mf1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f1" class="form-control" placeholder="1" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f1" class="form-control" placeholder="1" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>品質</th>
-                <td align="center"><input type="number" name="mf2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f2" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f2" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>運輸</th>
-                <td align="center"><input type="number" name="mf3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f3" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f3" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>靈活度</th>
-                <td align="center"><input type="number" name="mf4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f4" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f4" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#E2E5EA">行銷資源和能耐</th>
                 <th>通路管理</th>
-                <td align="center"><input type="number" name="mf5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f5" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f5" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>市場溝通</th>
-                <td align="center"><input type="number" name="mf6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f6" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f6" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>定價策略</th>
-                <td align="center"><input type="number" name="mf7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f7" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f7" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>產品策略</th>
-                <td align="center"><input type="number" name="mf8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f8" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f8" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#F8F9F9">研發資源和能耐</th>
                 <th>新品總數量</th>
-                <td align="center"><input type="number" name="mf9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f9" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f9" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>專利使用費</th>
-                <td align="center"><input type="number" name="mf10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f10" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f10" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>研發投資報酬率</th>
-                <td align="center"><input type="number" name="mf11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f11" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f11" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th>新品總發展時間</th>
-                <td align="center"><input type="number" name="mf12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f12" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f12" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
               </tr>
               <tr>
                 <th scope="row" rowspan="4" style="vertical-align: middle; background-color:#E2E5EA">財務資源和能耐</th>
                 <th>資產報酬率</th>
-                <td align="center"><input type="number" name="mf13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="ma13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="d13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                <td align="center"><input type="number" name="f13" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="mf13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="ma13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="d13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                <td align="center"><input type="number" name="f13" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                 <tr>
                   <th>股東權益報酬率</th>
-                  <td align="center"><input type="number" name="mf14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="ma14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="d14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                  <td align="center"><input type="number" name="f14" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="mf14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="ma14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="d14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                  <td align="center"><input type="number" name="f14" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                   <tr>
                     <th>營收成長率</th>
-                    <td align="center"><input type="number" name="mf15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="ma15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="d15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="f15" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="mf15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="ma15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="d15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="f15" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
                   </tr>
                   <tr>
                     <th>本益比</th>
-                    <td align="center"><input type="number" name="mf16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="ma16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="d16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
-                    <td align="center"><input type="number" name="f16" class="form-control" placeholder="2" min=0 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="mf16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="ma16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="d16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
+                    <td align="center"><input type="number" name="f16" class="form-control" placeholder="2" min=1 max="7" required style="text-align: center; width: 100px"></td>
 
                   </tbody>
                 </table>
@@ -545,5 +555,15 @@
     });
   }, false);
       })();
+
+
+
+  $(document).ready(function(){
+    $("#next").click(function(){
+            $('#loadQ9').modal('show');
+
+  });
+
+});
 
     </script>

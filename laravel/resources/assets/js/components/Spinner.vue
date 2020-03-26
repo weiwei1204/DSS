@@ -1,22 +1,41 @@
-form .form-control::-webkit-input-placeholder {
-         /* placeholder颜色  */
-         color: #D5D8DC;
-     }
+<template>
+<div class="loader" v-show="loading">Loading...</div>
+</template>
 
- /* loading spinner */
-.loaderspinner {
+
+<script>
+export default {
+	name:'Spinner',
+	data(){
+		return{
+			loading:true
+		}
+	},
+	mounted(){
+	axios
+	.then((res)=>{
+	this.loading = false
+	}
+	)}
+}
+</script>
+
+
+
+<style>
+.loader {
   font-size: 10px;
   margin: 50px auto;
   text-indent: -9999em;
   width: 11em;
   height: 11em;
   border-radius: 50%;
-  background: #ffffff;
-  background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+  background: #bedcff;
+  background: -moz-linear-gradient(left, #bedcff 10%, rgba(190,220,255, 0) 42%);
+  background: -webkit-linear-gradient(left, #bedcff 10%, rgba(190,220,255, 0) 42%);
+  background: -o-linear-gradient(left, #bedcff 10%, rgba(190,220,255, 0) 42%);
+  background: -ms-linear-gradient(left, #bedcff 10%, rgba(190,220,255, 0) 42%);
+  background: linear-gradient(to right, #bedcff 10%, rgba(190,220,255, 0) 42%);
   position: relative;
   -webkit-animation: load3 1.4s infinite linear;
   animation: load3 1.4s infinite linear;
@@ -24,18 +43,18 @@ form .form-control::-webkit-input-placeholder {
   -ms-transform: translateZ(0);
   transform: translateZ(0);
 }
-.loaderspinner:before {
+.loader:before {
   width: 50%;
   height: 50%;
-  background: #ffffff;
+  background: #bedcff;
   border-radius: 100% 0 0 0;
   position: absolute;
   top: 0;
   left: 0;
   content: '';
 }
-.loaderspinner:after {
-  background: #7f7f7f;
+.loader:after {
+  background: #f4f5fa;
   width: 75%;
   height: 75%;
   border-radius: 50%;
@@ -67,3 +86,5 @@ form .form-control::-webkit-input-placeholder {
     transform: rotate(360deg);
   }
 }
+
+</style>

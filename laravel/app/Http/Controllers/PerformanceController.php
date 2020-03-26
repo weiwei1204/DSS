@@ -157,6 +157,21 @@ class PerformanceController extends Controller
         $PLCperformance = ['SELECT * FROM performance_1sts ORDER BY created_at DESC LIMIT 4',
                         'SELECT * FROM performance_2nds ORDER BY created_at DESC LIMIT 4',
                         'SELECT * FROM performance_3rds ORDER BY created_at DESC LIMIT 4'];
+
+        ////////// 外部需求 //////////
+        // 0-3:財務 4-7:顧客 8-11:內部流程 12-15:學習成長 （製造 行銷 研發 財務）  
+        $bsc_1 = $this->calculate($PLCbsc[0],$PLCperformance[0],1);     
+        $bsc_2 = $this->calculate($PLCbsc[1],$PLCperformance[0],1);  
+        $bsc_3 = $this->calculate($PLCbsc[2],$PLCperformance[0],1);  
+
+
+        $output = shell_exec('sudo /usr/local/bin/python3 /Users/rita/testlaravel.py '. escapeshellarg(json_encode($bsc_1)) .' '
+         . escapeshellarg(json_encode($bsc_2)) . ' ' . escapeshellarg(json_encode($bsc_3)));
+
+
+
+        ////////// 內部績效 //////////
+
         $Upper1st = array();
         $Upper2nd = array();
         $Upper3rd = array();
@@ -168,24 +183,29 @@ class PerformanceController extends Controller
 
         //依照不同生命週期取資料並計算上下界區間
         for ($i=0; $i < 3; $i++) { 
-            $interval = $this->calculate($PLCbsc[$i],$PLCperformance[$i]);
+            $interval = $this->calculate($PLCbsc[$i],$PLCperformance[$i],0);
             $Upper[$i] = $interval[0];
             $Lower[$i] = $interval[1];
         }
         
-        for ($i=0; $i < 3; $i++) { 
-            $fianlupper = $Upper[$i];
-            foreach ($fianlupper as $fianlupper) {
-           echo $fianlupper;
-           echo '<br>';
-       }
-        }
+       //  for ($i=0; $i < 3; $i++) { 
+       //      $fianlupper = $Upper[$i];
+       //      foreach ($fianlupper as $fianlupper) {
+       //     echo $fianlupper;
+       //     echo '<br>';
+       // }
+       //  }
          
         // return view('PerformanceOfCapability');
 
-     $output = shell_exec('sudo /usr/local/bin/python3 .__FILE__.inPerformance.py '. escapeshellarg(json_encode($Lower[0])) .' '
+     $output = shell_exec('sudo /usr/local/bin/python3 ' .__DIR__.'/inPerformance.py '. escapeshellarg(json_encode($Lower[0])) .' '
          . escapeshellarg(json_encode($Lower[1])) . ' '. escapeshellarg(json_encode($Lower[2])) .' '. escapeshellarg(json_encode($Upper[0])) . ' ' . escapeshellarg(json_encode($Upper[1])) . ' ' . escapeshellarg(json_encode($Upper[2])));
 
+        //判斷DEA是否完成
+        if (strstr((string)$output,"完成")) {
+           return  $this->readexcel();
+
+        }
 
 
     }
@@ -196,7 +216,7 @@ class PerformanceController extends Controller
      * @param  
      * @return \Illuminate\Http\Response
      */
-    public function calculate(string $sqlbsc,string $sqlperformance)
+    public function calculate(string $sqlbsc,string $sqlperformance,int $inout)
     {
         $significantScore = [0.06993,0.06989,0.06977,0.06954,0.06915,0.06857,0.06775,0.06667,0.06527,0.06352,0.06138,0.05882,0.05579,
                             0.05225,0.04817,0.04351];       //  重要分數
@@ -238,62 +258,92 @@ class PerformanceController extends Controller
         //     echo $inprocess;
         // }
 
-        //////////績效表現 => 上、下界數值//////////
 
-        //SELECT * FROM `performance_1sts` ORDER BY `created_at` DESC LIMIT 4
-        $performancesql = DB::select($sqlperformance);
-        $upperfinance = array(); // 存放A01~A16的值 
-        $uppercustomer = array();
-        $upperinprocess = array();
-        $upperlearn_growth = array();
-        $upperperformance = array($upperfinance,$uppercustomer,$upperinprocess,$upperlearn_growth);
-        $lowerfinance = array(); // 存放A01~A16的值 
-        $lowercustomer = array();
-        $lowerinprocess = array();
-        $lowerlearn_growth = array();
-        $lowerperformance = array($lowerfinance,$lowercustomer,$lowerinprocess,$lowerlearn_growth);
-        // $resource = array('manufacture','marketing','development','finance'); 在重要分數中已經宣告
-        
-        foreach ($performancesql as $performancesql) {
-            $num = (int)$performancesql->bsc_id;
-            for ($i=0; $i < 4 ; $i++) { 
-                //array_push($arrayname,$sql結果，用column取資料)
-                $col = $resource[$i].'1';
-                $value = (int)$performancesql->$col;
-                array_push($upperperformance[$num-1], $upper[$value-1]);
-                array_push($lowerperformance[$num-1], $lower[$value-1]);
-                $col = $resource[$i].'2';
-                $value = (int)$performancesql->$col;
-                array_push($upperperformance[$num-1], $upper[$value-1]); 
-                array_push($lowerperformance[$num-1], $lower[$value-1]);
-                $col = $resource[$i].'3';
-                $value = (int)$performancesql->$col;
-                array_push($upperperformance[$num-1], $upper[$value-1]);
-                array_push($lowerperformance[$num-1], $lower[$value-1]);
-                $col = $resource[$i].'4';
-                $value = (int)$performancesql->$col;
-                array_push($upperperformance[$num-1], $upper[$value-1]);
-                array_push($lowerperformance[$num-1], $lower[$value-1]);
+        ////////// 外部需求 //////////
+        if ($inout == 1) {
+            $manufacture = array();
+            $marketing = array();
+            $development = array();
+            $rfinance = array();
+            $r = array($manufacture,$marketing,$development,$rfinance);
+            for ($i=0; $i<count($bsc) ; $i++) { 
+                for ($j=0; $j<count($r) ; $j++) { 
+                   $sum = $bsc[$i][$j*4]+$bsc[$i][$j*4+1]+$bsc[$i][$j*4+2]+$bsc[$i][$j*4+3];
+                   array_push($r[$j], $sum);
+                }
             }
+
+            $all = array_merge($r[0],$r[1],$r[2],$r[3]);
+            return $all;
+
         }
 
 
-        //////////績效表現程度之區間數值//////////
 
-        $fianlupper = array();  // 每個bsc(fcil)的上下界區間
-        $finallower = array();
-        for ($i=0; $i<4 ; $i++) {
-            $sumupper = 0; 
-            $sumlower = 0;
-            for ($j=0; $j<16; $j++) { 
-                $sumupper += $bsc[$i][$j]*$upperperformance[$i][$j];
-                $sumlower += $bsc[$i][$j]*$lowerperformance[$i][$j];
+
+
+
+        //////////內部績效表現 => 上、下界數值//////////
+
+        if ($inout == 0) {
+            //SELECT * FROM `performance_1sts` ORDER BY `created_at` DESC LIMIT 4
+            $performancesql = DB::select($sqlperformance);
+            $upperfinance = array(); // 存放A01~A16的值 
+            $uppercustomer = array();
+            $upperinprocess = array();
+            $upperlearn_growth = array();
+            $upperperformance = array($upperfinance,$uppercustomer,$upperinprocess,$upperlearn_growth);
+            $lowerfinance = array(); // 存放A01~A16的值 
+            $lowercustomer = array();
+            $lowerinprocess = array();
+            $lowerlearn_growth = array();
+            $lowerperformance = array($lowerfinance,$lowercustomer,$lowerinprocess,$lowerlearn_growth);
+            // $resource = array('manufacture','marketing','development','finance'); 在重要分數中已經宣告
+            
+            foreach ($performancesql as $performancesql) {
+                $num = (int)$performancesql->bsc_id;
+                for ($i=0; $i < 4 ; $i++) { 
+                    //array_push($arrayname,$sql結果，用column取資料)
+                    $col = $resource[$i].'1';
+                    $value = (int)$performancesql->$col;
+                    array_push($upperperformance[$num-1], $upper[$value-1]);
+                    array_push($lowerperformance[$num-1], $lower[$value-1]);
+                    $col = $resource[$i].'2';
+                    $value = (int)$performancesql->$col;
+                    array_push($upperperformance[$num-1], $upper[$value-1]); 
+                    array_push($lowerperformance[$num-1], $lower[$value-1]);
+                    $col = $resource[$i].'3';
+                    $value = (int)$performancesql->$col;
+                    array_push($upperperformance[$num-1], $upper[$value-1]);
+                    array_push($lowerperformance[$num-1], $lower[$value-1]);
+                    $col = $resource[$i].'4';
+                    $value = (int)$performancesql->$col;
+                    array_push($upperperformance[$num-1], $upper[$value-1]);
+                    array_push($lowerperformance[$num-1], $lower[$value-1]);
+                }
             }
-            array_push($fianlupper,$sumupper);
-            array_push($finallower,$sumlower);
+
+
+            //////////績效表現程度之區間數值//////////
+
+            $fianlupper = array();  // 每個bsc(fcil)的上下界區間
+            $finallower = array();
+            for ($i=0; $i<4 ; $i++) {
+                $sumupper = 0; 
+                $sumlower = 0;
+                for ($j=0; $j<16; $j++) { 
+                    $sumupper += $bsc[$i][$j]*$upperperformance[$i][$j];
+                    $sumlower += $bsc[$i][$j]*$lowerperformance[$i][$j];
+                }
+                array_push($fianlupper,$sumupper);
+                array_push($finallower,$sumlower);
+            }
+
+            return array($fianlupper,$finallower);
         }
 
-        return array($fianlupper,$finallower);
+
+
 
        // foreach ($fianlupper as $fianlupper) {
        //     echo $fianlupper;
@@ -303,56 +353,98 @@ class PerformanceController extends Controller
     }
 
     public function readexcel(){
-        $report = Excel::toArray(new UsersImport,  public_path('inPerformancereport.xlsx'));  
-        //[陣列][3(F1)-14(L3)][1下界、2中間值、3上界]
-        // dd($report);
-        $finance = array_merge($report[0][2],$report[0][3],$report[0][4]);          //F1 F2 F3 （財務構面的萌芽期、成長期、成熟期）
-        $customer = array_merge($report[0][5],$report[0][6],$report[0][7]);         //C1 C2 C3 （顧客構面的萌芽期、成長期、成熟期）
-        $inprocess = array_merge($report[0][8],$report[0][9],$report[0][10]);       //I1 I2 I3 （內部流程構面的萌芽期、成長期、成熟期）
-        $learn_growth = array_merge($report[0][11],$report[0][12],$report[0][13]);  //L1 L2 L3 （學習成長構面的萌芽期、成長期、成熟期）
-        // foreach ($finance as $finance) {
-        //     echo $finance;
-        // }
+            $report = Excel::toArray(new UsersImport,  public_path('inPerformancereport.xlsx'));  
+            //[陣列][3(F1)-14(L3)][1下界、2中間值、3上界]
+            // dd($report);
+            $finance = array_merge($report[0][2],$report[0][3],$report[0][4]);          //F1 F2 F3 （財務構面的萌芽期、成長期、成熟期）
+            $customer = array_merge($report[0][5],$report[0][6],$report[0][7]);         //C1 C2 C3 （顧客構面的萌芽期、成長期、成熟期）
+            $inprocess = array_merge($report[0][8],$report[0][9],$report[0][10]);       //I1 I2 I3 （內部流程構面的萌芽期、成長期、成熟期）
+            $learn_growth = array_merge($report[0][11],$report[0][12],$report[0][13]);  //L1 L2 L3 （學習成長構面的萌芽期、成長期、成熟期）
+            // foreach ($finance as $finance) {
+            //     echo $finance;
+            // }
 
-        $Chartfinance = $this->drawChart($finance);
-        $Chartcustomer = $this->drawChart($customer);
-        $Chartprocess = $this->drawChart($inprocess);
-        $Chartlearn = $this->drawChart($learn_growth);
-        $Maxfinance = $this->PLCmax($finance);
-        $Maxcustomer = $this->PLCmax($customer);
-        $Maxinprocess = $this->PLCmax($inprocess);
-        $Maxlearn_growth = $this->PLCmax($learn_growth);
-                   
+            $plc = array(array(),array(),array());
+            $Maxfinance = $this->PLCmax($finance);
+            array_push($plc[$Maxfinance[1]],"財務觀點(更加重視組織財務相關工作)");
+            $Maxfinance = $Maxfinance[0];
+            $Maxcustomer = $this->PLCmax($customer);
+            array_push($plc[$Maxcustomer[1]],"顧客觀點(應注重顧客的淺在需求以擴展市場)");
+            $Maxcustomer = $Maxcustomer[0];
+            $Maxinprocess = $this->PLCmax($inprocess);
+            array_push($plc[$Maxinprocess[1]],"內部流程觀點(需著重於內部流程的產品良率)");
+            $Maxinprocess = $Maxinprocess[0];
+            $Maxlearn_growth = $this->PLCmax($learn_growth);
+            array_push($plc[$Maxlearn_growth[1]],"學習與成長觀點(內部員工的學習成長能力與產品研發能力高度相關)");
+            $Maxlearn_growth = $Maxlearn_growth[0];
+            for ($i=0; $i<3; $i++) { 
+              if (count($plc[$i]) == 0) {
+                array_push($plc[$i],"均衡發展各觀點");
+              }
+            }
+                       
 
-        return view('PerformanceOfCapability', [ 'Chartfinance' => $Chartfinance , 'Chartcustomer' => $Chartcustomer ,
-                    'Chartprocess' => $Chartprocess , 'Chartlearn' => $Chartlearn ,
-                    'Maxfinance' => $Maxfinance , 'Maxcustomer' => $Maxcustomer , 
-                    'Maxinprocess' => $Maxinprocess , 'Maxlearn_growth' => $Maxlearn_growth]);
+            
 
-        // return array($finance,$customer,$inprocess,$learn_growth);
+            // return array($finance,$customer,$inprocess,$learn_growth); 
+        
+            $report = Excel::toArray(new UsersImport,  public_path('outPerformancereport.xlsx'));  
+            // dd($report);
+            //$report[array][0:column/1:null/2345:萌芽期fcil/6789:成長期fcil/10111213:成熟期fcil][製造/行銷/研發/財務]
+            //$bsc[財務2-5/顧客8-11/內部14-17/學習20-23]
+            $bsc_1 = array_merge($report[0][2],$report[0][3],$report[0][4],$report[0][5]);
+            $bsc_2 = array_merge($report[0][6],$report[0][7],$report[0][8],$report[0][9]);
+            $bsc_3 = array_merge($report[0][10],$report[0][11],$report[0][12],$report[0][13]);
+            $Chartbsc1 = $this->drawChart($bsc_1,1);
+            $Chartbsc2 = $this->drawChart($bsc_2,1);
+            $Chartbsc3 = $this->drawChart($bsc_3,1);
+            $Maxbsc_1 = $this->BSCmax($bsc_1);
+            $Maxbsc_2 = $this->BSCmax($bsc_2);
+            $Maxbsc_3 = $this->BSCmax($bsc_3);
+            // dd($Maxbsc_2);
+
+
+        return view('PerformanceOfCapability', [ 'Maxfinance' => $Maxfinance , 'Maxcustomer' => $Maxcustomer , 
+                        'Maxinprocess' => $Maxinprocess , 'Maxlearn_growth' => $Maxlearn_growth, 'plc' => $plc,
+                        'Chartbsc1' => $Chartbsc1 , 'Chartbsc2' => $Chartbsc2 ,'Chartbsc3' => $Chartbsc3 ,
+                        'Chartf' => $finance , 'Chartc' => $customer , 'Chartp' => $inprocess , 'Chartl' => $learn_growth ,
+                        'bsc_1' => $bsc_1 ,'bsc_2' => $bsc_2 ,'bsc_3' => $bsc_3,
+                        'Maxbsc1' => $Maxbsc_1 , 'Maxbsc2' => $Maxbsc_2 , 'Maxbsc3' => $Maxbsc_3]);
+
+
 
     }
 
-    public function drawChart(array $now){
-        $Chart = new UserChart;
-        $Chart->labels(['萌芽期', '成長期', '成熟期']);
-        $Chart->dataset('下界', 'line', [$now[1],$now[5],$now[9]])
-                    ->color("rgba(225, 119, 141)")
-                    ->backgroundcolor("rgba(225, 119, 141)")
-                    ->fill(false)
-                    ->linetension(0.1);
-        $Chart->dataset('中間值', 'line', [$now[2],$now[6],$now[10]])
-                    ->color("rgb(52, 152, 219)")
-                    ->backgroundcolor("rgb(52, 152, 219)")
-                    ->fill(false)
-                    ->linetension(0.1);
-        $Chart->dataset('上界', 'line', [$now[3],$now[7],$now[11]])
-                    ->color("rgb(127, 140, 141)")
-                    ->backgroundcolor("rgb(165, 105, 189)")
-                    ->fill(false)
-                    ->linetension(0.1);
 
-        return $Chart;
+
+    public function drawChart(array $now, int $inout){
+        if ($inout == 1) {
+            $Chart = new UserChart;
+            $Chart->labels(['製造', '行銷', '研發' , '財務']);
+            $Chart->dataset('財務', 'line', [$now[2],$now[3],$now[4],$now[5]])
+                        ->color("rgba(249, 193, 111)")
+                        ->backgroundcolor("rgba(249, 193, 111)")
+                        ->fill(false)
+                        ->lineTension(0.1);
+            $Chart->dataset('顧客', 'line', [$now[8],$now[9],$now[10],$now[11]])
+                        ->color("rgb(182, 163, 220)")
+                        ->backgroundcolor("rgb(182, 163, 220)")
+                        ->fill(false)
+                        ->linetension(0.1);
+            $Chart->dataset('內部', 'line', [$now[14],$now[15],$now[16],$now[17]])
+                        ->color("rgb(79, 197, 198)")
+                        ->backgroundcolor("rgb(79, 197, 198)")
+                        ->fill(false)
+                        ->linetension(0.1);
+            $Chart->dataset('學習', 'line', [$now[20],$now[21],$now[22],$now[23]])
+                        ->color("rgb(93, 178, 231)")
+                        ->backgroundcolor("rgb(93, 178, 231)")
+                        ->fill(false)
+                        ->linetension(0.1);
+
+            return $Chart; 
+        }
+
     }
 
 
@@ -362,25 +454,48 @@ class PerformanceController extends Controller
             for ($j=0; $j<3 ; $j++) { 
                 if ($now[$i+4*$j] == 1) {
                     $count[$j]+=1;
-                    // echo $now[$i+4*$j];
-                    // echo $i+4*$j;
-                    // echo '<br>';
-
                 }
             }
             
         }
-
         $max = array_keys($count, max($count));
         if ($max[0] == 0) {
-            return "萌芽期";
+            return array("萌芽期",0);
         }
         elseif ($max[0] == 1) {
-            return "成長期";
+            return array("成長期",1);
         }
         elseif ($max[0] == 2) {
-            return "成熟期";
+            return array("成熟期",2);
         }
+    }
+
+
+    public function BSCmax(array $now){
+        // $count = array(array(0,0,0,0),array(0,0,0,0),array(0,0,0,0),array(0,0,0,0));    //  [bsc四觀點][資源與能耐]
+        $count = array(null,null,null,null);
+        $position = [2,8,14,20];
+        $pbsc = ['提升財務面之績效','提升顧客面之績效','提升內部流程面之績效','提升學習與成長面之績效'];
+        $presource = ['製造','行銷','研發','財務'];
+        for ($i=0; $i<4 ; $i++) {
+            for ($j=0; $j<4 ; $j++) { 
+                if ($now[$position[$i]+$j] == 1) {
+                    if ($count[$i] == null) {
+                        $count[$i] = $count[$i].'投入更多'.$presource[$j];
+                    }
+                    else{
+                        $count[$i] = $count[$i].' '.$presource[$j];
+                    }
+
+                }
+            }
+            if ($count[$i] != null) {
+                $count[$i] = $count[$i].'資源能耐，'.$pbsc[$i];
+            }   
+        }
+
+        return $count;  //  1:表示效用值為1 0:效用值<1
+       
     }
 
     
