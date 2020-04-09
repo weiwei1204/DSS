@@ -81,7 +81,7 @@ class LoginController extends Controller
             session()->put('user_id', $User);
             session()->put('user_name', $Name);
 
-            return redirect()->intended('/GrowthStrategy/Q2');
+            return redirect()->intended('/');
             // return redirect('/GrowthStrategy/Q2');
             // return redirect($request->session()->get('url.intended'));
 

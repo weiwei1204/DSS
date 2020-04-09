@@ -109,11 +109,11 @@
     <div class="col-md-5" >
       <h5 class="card-title">數據分析歸納與發展</h5>
       <p class="card-text">
-       @foreach ($Maxbsc2 as $Maxbsc2)
+       @foreach ($Maxbsc2 as $Maxbsc2) @if($Maxbsc2!=null)
         <blockquote style="font-size: 16px;"> 
            {{$Maxbsc2}} 
        </blockquote>
-     @endforeach</p>
+     @endif @endforeach</p>
      </div>
    </div>
  </div>
@@ -129,11 +129,11 @@
     <div class="col-md-5" >
       <h5 class="card-title">數據分析歸納與發展</h5>
       <p class="card-text">
-       @foreach ($Maxbsc3 as $Maxbsc3)
+       @foreach ($Maxbsc3 as $Maxbsc3) @if($Maxbsc3!=null)
        <blockquote style="font-size: 16px;">
         {{$Maxbsc3}} 
       </blockquote>
-    @endforeach</p>
+    @endif @endforeach</p>
      </div>
    </div>
  </div>

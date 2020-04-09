@@ -64,7 +64,7 @@
 <!--         <spinner></spinner>
  -->        <nav class="navbar navbar-default navbar-fixed-top" style="position: fixed; height: 70px; line-height:100%">
             <div class="container" style="margin-top: -10px">
-                <div class="navbar-header col-md-6">
+                <div class="navbar-header col-md-6" style="vertical-align: middle;">
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -76,7 +76,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <!-- {{ config('app.name', 'Laravel') }} -->
+                        <div style="padding-bottom:50px ; display: inline; position: relative;bottom: 5px"><img src="{{ asset('img/house.png') }}" height="30" style="display: inline;"> </div>&nbsp;R&C
                     </a>
                 </div>
 

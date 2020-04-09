@@ -132,9 +132,9 @@
         <!--  {{-- ChartScript --}}-->    
 
         
-            <div class="justify-content-end">
+<!--             <div class="justify-content-end">
             <button type="button" class="btn btn-secondary" id="Qbtn" value="next" onclick="location.href='/Performance/Q10'" style="width:100px; margin-top: 20px; float: right;">next</button>
-             </div>
+             </div> -->
             </div>
             <div class="col-md-1"></div>
         </div>
